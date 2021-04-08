@@ -4,6 +4,7 @@ import Abstract.AbstractHashMap;
 import Interfaces.Entry;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /*
  * Interfaces.Map implementation using hash table with separate chaining.
@@ -35,7 +36,7 @@ public class ChainHashMap<K, V> extends AbstractHashMap<K, V> {
     }
 
     public static void main(String[] args) {
-        //HashMap<Integer, String> m = new HashMap<Integer, String>();
+        HashMap<Integer, String> m = new HashMap<Integer, String>();
         ChainHashMap<Integer, String> m = new ChainHashMap<Integer, String>();
 
         m.put(1, "One");
@@ -47,13 +48,6 @@ public class ChainHashMap<K, V> extends AbstractHashMap<K, V> {
 
         m.remove(11);
         System.out.println("m: " + m);
-
-//		Classes.ChainHashMap<String, Integer> counter = new ()//;
-//		// Scanner from file
-//		for(String word : scanner) {
-//			Integer old_count = counter.get(word);
-//			counter.put(old_count + 1);
-//		}
     }
 
     /**
