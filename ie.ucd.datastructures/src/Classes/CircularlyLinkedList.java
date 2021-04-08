@@ -11,8 +11,29 @@ public class CircularlyLinkedList<E> implements List<E> {
      * to the subsequent node in the list.
      */
     private static class Node<E> {
-        // TODO
-    } //----------- end of nested Node class -----------
+
+        /**
+         * The element stored at this node
+         */
+        private E element;     // an element stored at this node
+
+        /**
+         * A reference to the subsequent node in the list
+         */
+        private Node<E> next;  // a reference to the subsequent node in the list
+
+        /**
+         * Creates a node with the given element and next node.
+         *
+         * @param e the element to be stored
+         * @param n reference to a node that should follow the new node
+         */
+        public Node(E e, Node<E> n) {
+            element = e;
+            next = n;
+        }
+    }
+        //----------- end of nested Node class -----------
 
     // instance variables of the Classes.CircularlyLinkedList
     /** The designated cursor of the list */
@@ -67,8 +88,10 @@ public class CircularlyLinkedList<E> implements List<E> {
      * @return element at the front of the list (or null if empty)
      */
     public E first() {             // returns (but does not remove) the first element
-        // TODO
-        return null;
+        if (isEmpty()){
+            return null;
+        }
+        return tail.next.element;
     }
 
     /**
@@ -76,16 +99,20 @@ public class CircularlyLinkedList<E> implements List<E> {
      * @return element at the back of the list (or null if empty)
      */
     public E last() {              // returns (but does not remove) the last element
-        // TODO
-        return null;
+        if (isEmpty()){
+            return null;
+        }
+        return tail.element;
     }
 
     // update methods
     /**
      * Rotate the first element to the back of the list.
      */
-    public void rotate() {         // rotate the first element to the back of the list
-        // TODO
+    public void rotate() {
+        if (tail != null){
+            tail = tail.next;
+        }
     }
 
     /**
@@ -93,7 +120,14 @@ public class CircularlyLinkedList<E> implements List<E> {
      * @param e  the new element to add
      */
     public void addFirst(E e) {                // adds element e to the front of the list
-        // TODO
+        if (size == 0) {
+            tail = new Node<>(e, null);
+            tail.next=tail;                     // link to itself circularly
+        }else {
+            Node<E> newNode = new Node<>(e, tail.next);
+            tail.next = newNode;
+        }
+        size++;
     }
 
     /**
@@ -101,7 +135,8 @@ public class CircularlyLinkedList<E> implements List<E> {
      * @param e  the new element to add
      */
     public void addLast(E e) {                 // adds element e to the end of the list
-        // TODO
+        addFirst(e);             // insert new element at front of list
+        tail = tail.next;   // now new element becomes the tail
     }
 
     /**
@@ -109,8 +144,17 @@ public class CircularlyLinkedList<E> implements List<E> {
      * @return the removed element (or null if empty)
      */
     public E removeFirst() {                   // removes and returns the first element
-        // TODO
-        return null;
+        if (isEmpty()){
+            return null;              // nothing to remove
+        }
+        Node<E> head = tail.next;
+        if (head == tail){
+            tail = null;           // must be the only node left
+        }else{
+            tail.next = (head.next);       // removes "head" from the list
+        }
+        size--;
+        return head.element;
     }
 
     /**
@@ -118,10 +162,17 @@ public class CircularlyLinkedList<E> implements List<E> {
      * This exists for debugging purposes only.
      */
     public String toString() {
-        // TODO
-        return null;
+        if (tail == null) return "";
+        StringBuilder str = new StringBuilder();
+        Node<E> curr = tail;
+        do {
+            curr = curr.next;
+            str.append(curr.element);
+            if (curr != tail)
+                str.append(" -> ");
+        } while (curr != tail);
+        return str.toString();
     }
-
 
     public static void main(String [] args) {
         //ArrayList<String> all;

@@ -189,17 +189,16 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
 
     @SuppressWarnings({"unchecked"})
     public SinglyLinkedList<E> clone() throws CloneNotSupportedException {
-        // always use inherited Object.clone() to create the initial copy
-        SinglyLinkedList<E> other = (SinglyLinkedList<E>) super.clone(); // safe cast
-        if (size > 0) {                    // we need independent chain of nodes
+        SinglyLinkedList<E> other = (SinglyLinkedList<E>) super.clone(); 
+        if (size > 0) {                    
             other.head = new Node<E>(head.element, null);
-            Node<E> walk = head.next;      // walk through remainder of original list
-            Node<E> otherTail = other.head;     // remember most recently created node
-            while (walk != null) {              // make a new node storing same element
-                Node<E> newNode = new Node<E>(walk.element, null);
-                otherTail.next=newNode;     // link previous node to this one
+            Node<E> curr = head.next;      
+            Node<E> otherTail = other.head;     
+            while (curr != null) {              
+                Node<E> newNode = new Node<E>(curr.element, null);
+                otherTail.next=newNode;   
                 otherTail = newNode;
-                walk = walk.next;
+                curr = curr.next;
             }
         }
         return other;
