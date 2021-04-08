@@ -4,39 +4,60 @@ import Interfaces.Queue;
 
 public class ArrayQueue<E> implements Queue<E> {
 
+	//instance variables
+	public static final int CAPACITY = 1000;
+	private E[] data;
+	private int f = 0;
+	private int size = 0;
+	public ArrayQueue() {this(CAPACITY);}
+
+	@SuppressWarnings({"unchecked"})
+	public ArrayQueue(int capacity) {
+		data = (E[]) new Object[capacity];
+	}
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return size;
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return size==0;
 	}
 
 	@Override
 	public void enqueue(E e) {
-		// TODO Auto-generated method stub
-		
+		if (size == data.length) {
+			throw new IllegalStateException("Queue is full");
+		}
+		int avail = (f + size) % data.length;
+		data[avail] = e;
+		size++;
 	}
 
 	@Override
 	public E first() {
-		// TODO Auto-generated method stub
-		return null;
+		if (isEmpty()) {
+			return null;
+		}
+		return data[f];
 	}
 
 	@Override
 	public E dequeue() {
-		// TODO Auto-generated method stub
-		return null;
+		if (isEmpty()) {
+			return null;
+		}
+		E answer = data[f];
+		data[f] = null;
+		f = (f + 1) % data.length;
+		size--;
+		return answer;
 	}
 
 }
