@@ -12,8 +12,18 @@ public class DoublyLinkedList<E> implements List<E> {
      * element and to both the previous and next node in the list.
      */
     private static class Node<E> {
-        // TODO
-    } //----------- end of nested Node class -----------
+
+        private E element;
+        private Node<E> prev;
+        private Node<E> next;
+
+        public Node(E e, Node<E> p, Node<E> n) {
+            element = e;
+            prev = p;
+            next = n;
+        }
+    }
+        //----------- end of nested Node class -----------
 
     // instance variables of the Classes.DoublyLinkedList
     /** Sentinel node at the beginning of the list */
@@ -27,7 +37,9 @@ public class DoublyLinkedList<E> implements List<E> {
 
     /** Constructs a new empty list. */
     public DoublyLinkedList() {
-        // TODO
+        header = new Node<>(null, null, null);
+        trailer = new Node<>(null, header, null);
+        header.next = trailer;
     }
 
     // public accessor methods
@@ -73,8 +85,8 @@ public class DoublyLinkedList<E> implements List<E> {
      * @return element at the front of the list (or null if empty)
      */
     public E first() {
-        // TODO
-        return null;
+        if (isEmpty()) return null;
+        return header.next.element;
     }
 
     /**
@@ -82,8 +94,8 @@ public class DoublyLinkedList<E> implements List<E> {
      * @return element at the end of the list (or null if empty)
      */
     public E last() {
-        // TODO
-        return null;
+        if (isEmpty()) return null;
+        return trailer.prev.element;
     }
 
     // public update methods
@@ -92,8 +104,7 @@ public class DoublyLinkedList<E> implements List<E> {
      * @param e   the new element to add
      */
     public void addFirst(E e) {
-        // TODO
-        return;
+        addBetween(e, header, header.next);
     }
 
     /**
@@ -101,7 +112,7 @@ public class DoublyLinkedList<E> implements List<E> {
      * @param e   the new element to add
      */
     public void addLast(E e) {
-        // TODO
+        addBetween(e, trailer.prev, trailer);
     }
 
     /**
@@ -109,8 +120,10 @@ public class DoublyLinkedList<E> implements List<E> {
      * @return the removed element (or null if empty)
      */
     public E removeFirst() {
-        // TODO
-        return null;
+        if (isEmpty()) {
+            return null;
+        }
+        return remove(header.next);
     }
 
     /**
@@ -118,9 +131,10 @@ public class DoublyLinkedList<E> implements List<E> {
      * @return the removed element (or null if empty)
      */
     public E removeLast() {
-        // TODO
-        return null;
+        if (isEmpty()){return null;}
+        return remove(trailer.prev);
     }
+
 
     // private update methods
     /**
@@ -132,8 +146,11 @@ public class DoublyLinkedList<E> implements List<E> {
      * @param successor     node just after the location where the new element is inserted
      */
     private void addBetween(E e, Node<E> predecessor, Node<E> successor) {
-        // TODO
-        return ;
+        // create and link a new node
+        Node<E> newNode = new Node<>(e, predecessor, successor);
+        predecessor.next = newNode;
+        successor.prev = newNode;
+        size++;
     }
 
     /**
@@ -141,9 +158,14 @@ public class DoublyLinkedList<E> implements List<E> {
      * @param node    the node to be removed (must not be a sentinel)
      */
     private E remove(Node<E> node) {
-        // TODO
-        return null;
+        Node<E> predecessor = node.prev;
+        Node<E> successor = node.next;
+        predecessor.next = successor;
+        successor.prev = predecessor;
+        size--;
+        return node.element;
     }
+
 
 
     /**
@@ -151,8 +173,15 @@ public class DoublyLinkedList<E> implements List<E> {
      * This exists for debugging purposes only.
      */
     public String toString() {
-        // TODO
-        return null;
+        StringBuilder str = new StringBuilder("");
+        Node<E> curr = header.next;
+        while (curr != trailer) {
+            str.append(curr.element);
+            curr = curr.next;
+            if (curr != trailer)
+                str.append(" -> ");
+        }
+        return str.toString();
     }
 
     public static void main(String [] args) {

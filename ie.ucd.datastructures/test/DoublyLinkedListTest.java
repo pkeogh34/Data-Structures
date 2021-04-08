@@ -1,9 +1,10 @@
 import Classes.DoublyLinkedList;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
+
 
 class DoublyLinkedListTest {
 
@@ -29,7 +30,7 @@ class DoublyLinkedListTest {
 	void testFirst() {
 		DoublyLinkedList<Integer> ll = new DoublyLinkedList<>();
 		ll.addFirst(-1);
-		assertEquals(-1, ll.first());
+		assertEquals(java.util.Optional.of(-1), ll.first());
 		
 		ll.removeFirst();
 		assertEquals(null, ll.first());
@@ -42,13 +43,13 @@ class DoublyLinkedListTest {
 		DoublyLinkedList<Integer> ll = new DoublyLinkedList<>();
 		ll.addFirst(-1);
 
-		assertEquals(-1, ll.last());
+		assertEquals(java.util.Optional.of(-1), ll.last());
 
 		ll.addFirst(-2);
-		assertEquals(-1, ll.last());
+		assertEquals(java.util.Optional.of(-1), ll.last());
 		
 		ll.addLast(-3);
-		assertEquals(-3, ll.last());
+		assertEquals(java.util.Optional.of(-3), ll.last());
 	}
 
 
@@ -57,7 +58,7 @@ class DoublyLinkedListTest {
 		DoublyLinkedList<Integer> ll = new DoublyLinkedList<>();
 		ll.addFirst(-1);
 		ll.addFirst(-2);
-		assertEquals(-1, ll.removeLast());
+		assertEquals(java.util.Optional.of(-1), ll.removeLast());
 	}
 
 	@Test
@@ -65,7 +66,7 @@ class DoublyLinkedListTest {
 		DoublyLinkedList<Integer> ll = new DoublyLinkedList<>();
 		for(int i = 0; i < 5; ++i) ll.addLast(i);
 
-		assertEquals(1, ll.get(1));
+		assertEquals(java.util.Optional.of(1), ll.get(1));
 	}
 
 	@Test
