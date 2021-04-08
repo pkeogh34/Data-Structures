@@ -19,11 +19,21 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
      * is the last node).
      */
     private static class Node<E> {
-        // TODO
-    } //----------- end of nested Node class -----------
+        private E element;
+        private Node<E> next;
+
+        public Node(E e, Node<E> n) {
+            element = e;
+            next = n;
+        }
+
+    }
+    //----------- end of nested Node class -----------
 
     // instance variables of the Classes.SinglyLinkedList
     private Node<E> head = null; // head node of the list (or null if empty)
+
+    private Node<E> tail = null; // tail node of the list (or null if empty)
 
     private int size = 0; // number of nodes in the list
 
@@ -76,8 +86,10 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
      * @return element at the front of the list (or null if empty)
      */
     public E first() {
-        // TODO
-        return null;
+        if (isEmpty()) {
+            return null;
+        }
+        return head.element;
     }
 
     /**
@@ -86,8 +98,7 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
      * @return last node of the list (or null if empty)
      */
     public Node<E> getLast() {
-        // TODO
-        return null;
+        return tail;
     }
 
     /**
@@ -96,8 +107,10 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
      * @return element at the end of the list (or null if empty)
      */
     public E last() {
-        // TODO
-        return null;
+        if (isEmpty()){
+            return null;
+        }
+        return tail.element;
     }
 
     // update methods
@@ -108,7 +121,11 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
      * @param e the new element to add
      */
     public void addFirst(E e) {
-        // TODO
+        head = new Node<>(e, head);
+        if (size == 0) {
+            tail = head;
+        }
+        size++;
     }
 
     /**
@@ -117,7 +134,15 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
      * @param e the new element to add
      */
     public void addLast(E e) {
-        // TODO
+        Node<E> newNode = new Node<>(e, null);
+        if (isEmpty()) {
+            head = newNode;
+        }else {
+            tail.next=newNode;
+        }
+        tail = newNode;
+        size++;
+
     }
 
     /**
@@ -126,20 +151,58 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
      * @return the removed element (or null if empty)
      */
     public E removeFirst() {
-        // TODO
-        return null;
+        if (isEmpty()){
+            return null;
+        }
+        E node = head.element;
+        head = head.next;
+        size--;
+        if (size == 0) {
+            tail = null;
+        }
+        return node;
     }
 
     @SuppressWarnings({"unchecked"})
     public boolean equals(Object o) {
-        // TODO
-        return false;   // if we reach this, everything matched successfully
+        if (o == null){
+            return false;
+        }
+        if (getClass() != o.getClass()) {
+            return false;
+        }
+        SinglyLinkedList<E> other = (SinglyLinkedList<E>) o;
+        if (size != other.size) {
+            return false;
+        }
+        Node<E> walkA = head;
+        Node<E> walkB = other.head;
+        while (walkA != null) {
+            if (!walkA.element.equals(walkB.element)){
+                return false; //mismatch
+            }
+            walkA = walkA.next;
+            walkB = walkB.next;
+        }
+        return true;
     }
 
     @SuppressWarnings({"unchecked"})
     public SinglyLinkedList<E> clone() throws CloneNotSupportedException {
-        // TODO
-        return null;
+        // always use inherited Object.clone() to create the initial copy
+        SinglyLinkedList<E> other = (SinglyLinkedList<E>) super.clone(); // safe cast
+        if (size > 0) {                    // we need independent chain of nodes
+            other.head = new Node<E>(head.element, null);
+            Node<E> walk = head.next;      // walk through remainder of original list
+            Node<E> otherTail = other.head;     // remember most recently created node
+            while (walk != null) {              // make a new node storing same element
+                Node<E> newNode = new Node<E>(walk.element, null);
+                otherTail.next=newNode;     // link previous node to this one
+                otherTail = newNode;
+                walk = walk.next;
+            }
+        }
+        return other;
     }
 
 
@@ -148,14 +211,21 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
      * This exists for debugging purposes only.
      */
     public String toString() {
-        // TODO
-        return null;
+        StringBuilder str = new StringBuilder();
+        Node<E> curr = head;
+        while (curr != null) {
+            str.append(curr.element);
+            if (curr != tail) {
+                str.append(" -> ");
+            }
+            curr = curr.next;
+        }
+        return str.toString();
     }
 
     private class SinglyLinkedListIterator<E> implements Iterator<E> {
         @Override
         public boolean hasNext() {
-            // TODO
             return false;
         }
 
@@ -173,7 +243,7 @@ public class SinglyLinkedList<E> implements Cloneable, Iterable<E>, List<E> {
     public static void main(String[] args) {
         //ArrayList<String> all;
         //LinkedList<String> ll;
-        
+
         SinglyLinkedList<String> sll = new SinglyLinkedList<String>();
 
         String[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
