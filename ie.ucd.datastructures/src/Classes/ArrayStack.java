@@ -3,40 +3,55 @@ package Classes;
 import Interfaces.Stack;
 
 public class ArrayStack<E> implements Stack<E> {
+	public static final int CAPACITY=1000;
+	private E[] data;
+	private int t = -1;
+	public ArrayStack() { this(CAPACITY); }  // constructs stack with default capacity
+
+	@SuppressWarnings({"unchecked"})
+	public ArrayStack(int capacity) {        // constructs stack with given capacity
+		data = (E[]) new Object[capacity];     // safe cast; compiler may give warning
+	}
+
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return (t + 1);
 	}
 
 	@Override
-	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean isEmpty(){
+		return (t == -1);
 	}
 
 	@Override
-	public void push(E e) {
-		// TODO Auto-generated method stub
-		
+	public void push(E e) throws IllegalStateException {
+		if (size() == data.length){
+			throw new IllegalStateException("Full Stack");
+		}
+		data[++t] = e;
 	}
 
 	@Override
 	public E top() {
-		// TODO Auto-generated method stub
-		return null;
+		if (isEmpty()) return null;
+		return data[t];
 	}
+
 
 	@Override
 	public E pop() {
-		// TODO Auto-generated method stub
-		return null;
+		if (isEmpty()) {
+			return null;
+		}
+		E answer = data[t];
+		data[t] = null;
+		t--;
+		return answer;
 	}
 
 }
