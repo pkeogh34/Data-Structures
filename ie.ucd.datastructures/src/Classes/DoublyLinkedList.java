@@ -196,9 +196,5 @@ public class DoublyLinkedList<E> implements List<E> {
             ll.addLast(s);
         }
         System.out.println(ll.toString());
-
-        for (String s : ll) {
-            System.out.print(s + ", ");
-        }
     }
 } //----------- end of Classes.DoublyLinkedList class -----------
