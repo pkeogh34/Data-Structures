@@ -36,7 +36,6 @@ public class ChainHashMap<K, V> extends AbstractHashMap<K, V> {
     }
 
     public static void main(String[] args) {
-        HashMap<Integer, String> m = new HashMap<Integer, String>();
         ChainHashMap<Integer, String> m = new ChainHashMap<Integer, String>();
 
         m.put(1, "One");
