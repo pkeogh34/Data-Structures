@@ -12,39 +12,41 @@ import Interfaces.Queue;
 
 public class LinkedCircularQueue<E> implements Queue<E> {
 
+	private CircularlyLinkedList<E> circle = new CircularlyLinkedList<>();
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
 	}
+
+	public LinkedCircularQueue() { }
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return circle.size();
 	}
+
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return circle.isEmpty();
 	}
+
 
 	@Override
-	public void enqueue(E e) {
-		// TODO Auto-generated method stub
-
+	public void enqueue(E element) {
+		circle.addLast(element);
 	}
+
 
 	@Override
 	public E first() {
-		// TODO Auto-generated method stub
-		return null;
+		return circle.first();
 	}
+
 
 	@Override
 	public E dequeue() {
-		// TODO Auto-generated method stub
-		return null;
+		return circle.removeFirst();
 	}
 
 }
