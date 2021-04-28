@@ -1,15 +1,14 @@
 import Classes.ChainHashMap;
 import Classes.DefaultComparator;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static junit.framework.TestCase.assertEquals;
+
 
 class ChainHashMapTest {
-
-
-
 	@Test
 	void testSize() {
 		ChainHashMap<Integer, String> map = new ChainHashMap<Integer, String>();
@@ -29,8 +28,8 @@ class ChainHashMapTest {
 		for(int i = 0; i < n; ++i) {
 			map.put(Integer.toString(i), i);
 		}
-		assertEquals(5, map.get("5"));
-		assertEquals(2, map.get("2"));
+		assertEquals(java.util.Optional.of(5), map.get("5"));
+		assertEquals(java.util.Optional.of(2), map.get("2"));
 	}
 
 	@Test
@@ -41,7 +40,7 @@ class ChainHashMapTest {
 		for(int i = 0; i < n; ++i) {
 			map.put(Integer.toString(i), i);
 		}
-		assertEquals(5, map.remove("5"));
+		assertEquals(java.util.Optional.of(5), map.remove("5"));
 		assertEquals(n-1, map.size());
 	}
 

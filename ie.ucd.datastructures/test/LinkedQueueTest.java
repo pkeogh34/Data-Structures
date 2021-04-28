@@ -1,7 +1,7 @@
 import Classes.LinkedQueue;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static junit.framework.TestCase.assertEquals;
 
 class LinkedQueueTest {
 
@@ -36,7 +36,7 @@ class LinkedQueueTest {
 		LinkedQueue<Integer> s = new LinkedQueue<>();
 		for(int i = 0; i < 10; ++i)
 			s.enqueue(i);
-		assertEquals(0, s.first());
+		assertEquals(java.util.Optional.of(0), s.first());
 	}
 
 	@Test
@@ -45,7 +45,7 @@ class LinkedQueueTest {
 		for(int i = 0; i < 10; ++i)
 			s.enqueue(i);
 
-		assertEquals(0, s.dequeue());
+		assertEquals(java.util.Optional.of(0), s.dequeue());
 		assertEquals(9, s.size());
 	}
 

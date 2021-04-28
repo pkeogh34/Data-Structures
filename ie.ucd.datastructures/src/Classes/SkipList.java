@@ -29,7 +29,7 @@ public class SkipList<K extends Comparable<? super K>, V> extends AbstractMap<K,
         }
 
         public String toString() {
-            return new StringBuilder().append("[").append(key).append(", ").append(value).append("]").toString();
+            return "[" + key + ", " + value + "]";
         }
     }
 
@@ -61,7 +61,7 @@ public class SkipList<K extends Comparable<? super K>, V> extends AbstractMap<K,
         head.nextNodes.add(null);
     }
 
-    public SkipListNode getHead() {
+    public SkipListNode<K,V> getHead() {
         return head;
     }
 
@@ -72,7 +72,7 @@ public class SkipList<K extends Comparable<? super K>, V> extends AbstractMap<K,
         return null;
     }
 
-    @Override
+    //@Override
     public V remove(K key) {
         // TODO
         return null;
@@ -85,19 +85,19 @@ public class SkipList<K extends Comparable<? super K>, V> extends AbstractMap<K,
     }
 
     // Returns the skiplist node with greatest value <= e
-    private SkipListNode find(K k) {
+    private SkipListNode<K,V> find(K k) {
         return find(k, head, maxLevel);
     }
 
     // Returns the skiplist node with greatest value <= e
     // Starts at node start and level
-    private SkipListNode find(K k, SkipListNode current, int level) {
+    private SkipListNode<K,V> find(K k, SkipListNode<K,V> current, int level) {
         // TODO
         return null;
     }
 
     // Returns the node at a given level with highest value less than e
-    private SkipListNode findNext(K k, SkipListNode current, int level) {
+    private SkipListNode<K,V> findNext(K k, SkipListNode<K,V> current, int level) {
         // TODO
         return null;
     }
@@ -106,7 +106,7 @@ public class SkipList<K extends Comparable<? super K>, V> extends AbstractMap<K,
         return size;
     }
 
-    @Override
+    //@Override
     public V get(K key) {
         // TODO
         return null;
@@ -116,11 +116,11 @@ public class SkipList<K extends Comparable<? super K>, V> extends AbstractMap<K,
         StringBuilder sb = new StringBuilder();
         sb.append("(");
         int level = 0;
-        SkipListNode current = (SkipListNode) head.nextNodes.get(level);
+        SkipListNode<K,V> current =  head.nextNodes.get(level);
 
         while(current != null) {
             sb.append(current.toString()).append(", ");
-            current = (SkipListNode)current.nextNodes.get(level);
+            current = current.nextNodes.get(level);
         }
         sb.append(")");
         return sb.toString();
@@ -131,7 +131,7 @@ public class SkipList<K extends Comparable<? super K>, V> extends AbstractMap<K,
      ******************************************************************************/
 
     public static void main(String[] args) {
-        SkipList testList = new SkipList<Integer, String>();
+        SkipList<Integer, String> testList = new SkipList<>();
         System.out.println(testList);
 
         testList.put(4, "four");

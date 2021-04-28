@@ -1,8 +1,9 @@
 import Classes.LinkedBinaryTree;
 import Interfaces.Position;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static junit.framework.Assert.assertEquals;
+
 
 class LinkedBinaryTreeTest {
 
@@ -24,7 +25,7 @@ class LinkedBinaryTreeTest {
 
 		Integer c = Integer.parseInt("0");
 		bt.addRoot(c);
-		assertEquals(c, bt.root().getElement(), "root not added correctly");
+		assertEquals(String.valueOf(c), bt.root().getElement(), "root not added correctly");
 	}
 
 	@Test
@@ -34,7 +35,7 @@ class LinkedBinaryTreeTest {
 		Integer c = Integer.parseInt("0");
 		bt.addRoot(c);
 		bt.addLeft(bt.root(), 1);
-		assertEquals(1, bt.left(bt.root()).getElement());
+		assertEquals(java.util.Optional.of(1), bt.left(bt.root()).getElement());
 	}
 
 	@Test
@@ -44,7 +45,7 @@ class LinkedBinaryTreeTest {
 		Integer c = Integer.parseInt("0");
 		bt.addRoot(c);
 		bt.addRight(bt.root(), 1);
-		assertEquals(1, bt.right(bt.root()).getElement());
+		assertEquals(java.util.Optional.of(1), bt.right(bt.root()).getElement());
 	}
 
 	@Test
@@ -55,7 +56,7 @@ class LinkedBinaryTreeTest {
 		bt.addRoot(c);
 		bt.addRight(bt.root(), 1);
 		Integer old = bt.remove(bt.right(bt.root()));
-		assertEquals(old, 1);
+		assertEquals(java.util.Optional.ofNullable(old), 1);
 		assertEquals(1, bt.size());
 	}
 

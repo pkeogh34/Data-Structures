@@ -1,10 +1,10 @@
 import Classes.HeapPriorityQueue;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
+
 
 class HeapPriorityQueueTest {
-
 	@Test
 	void testSize() {
 		HeapPriorityQueue<Integer, String> pq = new HeapPriorityQueue<>();
@@ -22,7 +22,7 @@ class HeapPriorityQueueTest {
 
 		for(Integer i : arr) pq.insert(i, Integer.toString(i));
 
-		assertEquals(1, pq.min().getKey());
+		assertEquals(java.util.Optional.of(1), pq.min().getKey());
 	}
 
 	@Test
@@ -44,9 +44,9 @@ class HeapPriorityQueueTest {
 
 		for(Integer i : arr) pq.insert(i, Integer.toString(i));
 
-		assertEquals(1, pq.removeMin().getKey());
+		assertEquals(1, java.util.Optional.ofNullable(pq.removeMin().getKey()));
 		assertEquals(11, pq.size());
-		assertEquals(2, pq.min().getKey());
+		assertEquals(java.util.Optional.of(2), pq.min().getKey());
 	}
 
 	@Test
