@@ -55,7 +55,7 @@ public abstract class AbstractMap<K, V> implements Map<K, V> {
 			k = key;
 		}
 
-		protected V setValue(V value) {
+		public V setValue(V value) {
 			V old = v;
 			v = value;
 			return old;
