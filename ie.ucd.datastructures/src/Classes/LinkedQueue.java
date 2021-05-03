@@ -3,40 +3,31 @@ package Classes;
 import Interfaces.Queue;
 
 public class LinkedQueue<E> implements Queue<E> {
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
+	SinglyLinkedList<E> list = new SinglyLinkedList<>();
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return list.size();
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return list.size() == 0;
 	}
 
 	@Override
 	public void enqueue(E e) {
-		// TODO Auto-generated method stub
-		
+		list.addFirst(e);
 	}
 
 	@Override
 	public E first() {
-		// TODO Auto-generated method stub
-		return null;
+		return list.first();
 	}
 
 	@Override
 	public E dequeue() {
-		// TODO Auto-generated method stub
-		return null;
+		return list.removeLast();
 	}
 
 }
